@@ -3,6 +3,7 @@ package by.korovkin.controller;
 import by.korovkin.entity.*;
 import by.korovkin.service.IssueService;
 import by.korovkin.service.ReferenceService;
+import by.korovkin.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class RestIssue {
 
     @Autowired
     ReferenceService referenceService;
+
+    @Autowired
+    UserService userService;
 
     private static final Logger log = LoggerFactory.getLogger("RestIssue");
 
@@ -72,6 +76,13 @@ public class RestIssue {
     public List<Project> projectList() {
         log.info("fetching all projects");
         return referenceService.findAllProject();
+    }
+
+    @RequestMapping(value = "/issue/user", method = RequestMethod.GET, produces =
+            "application/json")
+    public List<User> userList(){
+        log.info("fetching all users");
+        return userService.findAll();
     }
 
 }
